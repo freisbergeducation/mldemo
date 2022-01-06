@@ -1,1 +1,1 @@
-web: gunicorn mldemo:app
+web: gunicorn -b :$PORT mldemo:app
