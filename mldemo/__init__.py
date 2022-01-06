@@ -10,6 +10,6 @@ def create_app():
         return render_template("index.html")
     
     if __name__ == '__main__':
-        PORT = int(os.environ.get('PORT', 5000))
+        PORT = int(os.getenv('PORT'))
 
     return app
