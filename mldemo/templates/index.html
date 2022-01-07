@@ -20,17 +20,17 @@
           <label for="exampleRecipientInput">Wähle eine KI</label>
           <select class="u-full-width" id="exampleRecipientInput">
             <option value="Option 1">tasse_baum_buch</option>
-            <option value="Option 2">berndeutsch_hochdeutsch</option>
-            <option value="Option 3">politisch_links_rechts</option>
+            <!-- <option value="Option 2">berndeutsch_hochdeutsch</option>
+            <option value="Option 3">politisch_links_rechts</option> -->
           </select>
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="six columns">
           <label for="textinput">Text</label>
           <textarea class="u-full-width" placeholder="Gib hier den Text ein, falls die KI Text als Input akzeptiert." id="textinput" name="textinput"></textarea>
         </div>
-      </div>
+      </div> -->
       <div class="row">
         <div class="six columns">
           <label for="imageinput">Bild</label>
@@ -40,7 +40,7 @@
       <input class="button-primary" type="submit" value="An KI senden">
     </form>
 
-    <h5>Die KI antwortet:</h5>
+    <h5>Die KI antwortet: {{prediction}}</h5>
   </div>
 </body>
 </html>
