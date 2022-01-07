@@ -2,13 +2,42 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ML Demo</title>
-<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='./style.css') }}">
-  
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='./style.css') }}">
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='./normalize.css') }}">
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='./skeleton.css') }}">
 </head>
 
 <body>
-	<h1>PTW 2022 KI</h1>
-    <input type="file" accept="image/*" capture="camera">
+
+	<h1>Projektwoche KI - Live Demo</h1>
+
+  <form>
+    <div class="row">
+      <div class="six columns">
+        <label for="exampleRecipientInput">Wähle eine KI</label>
+        <select class="u-full-width" id="exampleRecipientInput">
+          <option value="Option 1">tasse_baum_buch</option>
+          <option value="Option 2">berndeutsch_hochdeutsch</option>
+          <option value="Option 3">politisch_links_rechts</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="six columns">
+        <label for="textinput">Text</label>
+        <textarea class="u-full-width" placeholder="Gib hier den Text ein, falls die KI Text als Input akzeptiert." id="textinput"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="six columns">
+        <label for="imageinput">Bild</label>
+        <input class="button-primary" type="file" accept="image/*" capture="camera">
+      </div>
+    </div>
+    <input class="button-primary" type="submit" value="An KI senden">
+  </form>
+
 </body>
 </html>
