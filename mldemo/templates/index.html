@@ -14,7 +14,7 @@
   <div class="container">
     <h1>Projektwoche KI - Live Demo</h1>
 
-    <form>
+    <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
       <div class="row">
         <div class="six columns">
           <label for="exampleRecipientInput">Wähle eine KI</label>
@@ -28,19 +28,19 @@
       <div class="row">
         <div class="six columns">
           <label for="textinput">Text</label>
-          <textarea class="u-full-width" placeholder="Gib hier den Text ein, falls die KI Text als Input akzeptiert." id="textinput"></textarea>
+          <textarea class="u-full-width" placeholder="Gib hier den Text ein, falls die KI Text als Input akzeptiert." id="textinput" name="textinput"></textarea>
         </div>
       </div>
       <div class="row">
         <div class="six columns">
           <label for="imageinput">Bild</label>
-          <input class="button-primary" type="file" accept="image/*" capture="camera">
+          <input class="button-primary" type="file" accept="image/*" capture="camera" name="imageinput">
         </div>
       </div>
       <input class="button-primary" type="submit" value="An KI senden">
     </form>
 
-    <h5>Die KI antwortet: {{response}}</h5>
+    <h5>Die KI antwortet:</h5>
   </div>
 </body>
 </html>
