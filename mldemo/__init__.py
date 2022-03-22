@@ -1,3 +1,7 @@
+# 003_Freisberg_Education\mldemo\mldemo>set FLASK_APP=mldemo
+# set FLASK_ENV=development
+# flask run
+
 from flask import Flask, render_template, request, url_for
 from PIL import Image
 import numpy as np
@@ -32,11 +36,11 @@ def predict():
     img = np.array([img])
     #prediction = img.shape
     model = load_model("tasse_baum_buch.h5")
-    class_names = ['buch', 'tasse', 'baum']
+    class_names = ['buch', 'tasse']
     prediction = model.predict(img).round(3)
     prediction = class_names[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
     #img.save("image.jpeg")
 
-    return render_template("index.html", prediction=prediction)
+    return render_template("predict.html", prediction=prediction)
 
 # split this up in multiple python files
