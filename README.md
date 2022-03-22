@@ -1,4 +1,3 @@
 # mldemo
 ## Checklist to add new model:
-- sdf
-- sdfdsf
+- add to index.html: <option value="{{ model_name }}">{{ model_name }}</option>
