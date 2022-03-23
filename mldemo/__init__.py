@@ -6,11 +6,11 @@ from flask import Flask, render_template, request, url_for, session
 from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
-import nltk
+""" import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import TweetTokenizer
-import string
+import string """
 from tensorflow import keras
 
 app = Flask(__name__, instance_relative_config=True)
