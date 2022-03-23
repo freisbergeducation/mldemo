@@ -19,7 +19,7 @@ app.secret_key = '3ks93k6n4kdilm4jnrkf'
 def index():
   return render_template("index.html")
 
-@app.route('/upload', methods=['POST', 'GET'])
+@app.route('/upload', methods=['POST'])
 def upload():
   image_models = [
     'buch_oder_tasse'
@@ -70,7 +70,7 @@ def result_image():
 
   return render_template("result.html", prediction=prediction)
 
-@app.route('/result_text', methods=['POST', 'GET'])
+@app.route('/result_text', methods=['POST'])
 def result_text():
   labels_dict = {
     'hate_speech': ['hate', 'no hate']
@@ -102,7 +102,7 @@ def result_text():
 
   return render_template("result.html", prediction=prediction)
 
-@app.route('/result_audio', methods=['POST', 'GET'])
+@app.route('/result_audio', methods=['POST'])
 def result_audio():
   labels_dict = {
     'hate_speech': ['zero', 'one']
