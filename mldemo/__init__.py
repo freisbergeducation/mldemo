@@ -77,7 +77,7 @@ def result_text():
   labels_dict = {
     'hate_speech': ['hate', 'no hate']
   }
-  nltk.download('stopwords')
+  #nltk.download('stopwords')
   text_input = request.form['text_input']
 
   stemmer = PorterStemmer()
