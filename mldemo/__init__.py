@@ -71,7 +71,7 @@ def result_image():
 
   return render_template("result.html", prediction=prediction)
 
-@app.route('/result_text', methods=['POST', 'GET'])
+""" @app.route('/result_text', methods=['POST', 'GET'])
 def result_text():
   labels_dict = {
     'hate_speech': ['hate', 'no hate']
@@ -116,6 +116,6 @@ def result_audio():
   prediction = model.predict(audio).round(3)
   prediction = labels[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
 
-  return render_template("result.html", prediction=prediction)
+  return render_template("result.html", prediction=prediction) """
 
 # split this up in multiple python files
