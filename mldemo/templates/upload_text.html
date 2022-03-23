@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ML Demo</title>
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='./style.css') }}">
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='./normalize.css') }}">
+  <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='./skeleton.css') }}">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Projektwoche KI - Live Demo</h1>
+
+    <form action="{{ url_for('result_text') }}" method="post" enctype="multipart/form-data">
+      <div class="row">
+        <div class="six columns">
+          <label for="textinput">2. Schreibe deinen Text!</label>
+          <textarea class="u-full-width" placeholder="Gib hier den Text ein, den du der KI senden möchtest" id="text_input" name="text_input"></textarea>
+        </div>
+      </div>
+      <input class="button-primary" type="submit" value="An KI senden">
+    </form>
+    <form action="{{ url_for('index') }}">
+      <input class="button-secondary" type="submit" value="Zurück">
+    </form>
+  </div>
+</body>
+</html>
