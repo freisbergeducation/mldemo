@@ -2,15 +2,15 @@
 # set FLASK_ENV=development
 # flask run
 
-from flask import Flask, render_template, request, url_for, session
+from flask import Flask, render_template, request, url_for#, session
 from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
-""" import nltk
+import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import TweetTokenizer
-import string """
+import string
 from tensorflow import keras
 
 app = Flask(__name__, instance_relative_config=True)
@@ -32,7 +32,7 @@ def upload():
     'hate_speech'
   ]
   selected_model = request.form.get('selected_model')
-  session['selected_model'] = selected_model
+  #session['selected_model'] = selected_model
 
   if selected_model in image_models:
     return render_template("upload_image.html")
@@ -41,7 +41,7 @@ def upload():
   elif selected_model in text_models:
     return render_template("upload_text.html")
 
-@app.route('/result_image', methods=['POST', 'GET'])
+""" @app.route('/result_image', methods=['POST', 'GET'])
 def result_image():
   labels_dict = {
     'buch_oder_tasse': ['buch', 'tasse']
@@ -71,7 +71,7 @@ def result_image():
 
   return render_template("result.html", prediction=prediction)
 
-""" @app.route('/result_text', methods=['POST', 'GET'])
+@app.route('/result_text', methods=['POST', 'GET'])
 def result_text():
   labels_dict = {
     'hate_speech': ['hate', 'no hate']
@@ -116,6 +116,6 @@ def result_audio():
   prediction = model.predict(audio).round(3)
   prediction = labels[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
 
-  return render_template("result.html", prediction=prediction) """
-
+  return render_template("result.html", prediction=prediction)
+ """
 # split this up in multiple python files
