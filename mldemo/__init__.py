@@ -113,6 +113,7 @@ def result_audio():
   selected_model = session.get('selected_model', None)
   model = load_model("models/" + selected_model)
   labels = labels_dict[selected_model]
+  audio = ""
   prediction = model.predict(audio).round(3)
   prediction = labels[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
 
