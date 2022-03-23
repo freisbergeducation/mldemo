@@ -2,7 +2,7 @@
 # set FLASK_ENV=development
 # flask run
 
-from flask import Flask, render_template, request, url_for#, session
+from flask import Flask, render_template, request, url_for, session
 from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
@@ -13,7 +13,7 @@ import string
 from tensorflow import keras
 
 app = Flask(__name__, instance_relative_config=True)
-#app.secret_key = '3ks93k6n4kdilm4jnrkf'
+app.secret_key = '3ks93k6n4kdilm4jnrkf'
 
 @app.route('/')
 def index():
@@ -31,7 +31,7 @@ def upload():
     'hate_speech'
   ]
   selected_model = request.form.get('selected_model')
-  #session['selected_model'] = selected_model
+  session['selected_model'] = selected_model
 
   if selected_model in image_models:
     return render_template("upload_image.html")
@@ -40,7 +40,7 @@ def upload():
   elif selected_model in text_models:
     return render_template("upload_text.html")
 
-""" @app.route('/result_image', methods=['POST', 'GET'])
+@app.route('/result_image', methods=['POST', 'GET'])
 def result_image():
   labels_dict = {
     'buch_oder_tasse': ['buch', 'tasse']
@@ -116,5 +116,5 @@ def result_audio():
   prediction = labels[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
 
   return render_template("result.html", prediction=prediction)
- """
+
 # split this up in multiple python files
