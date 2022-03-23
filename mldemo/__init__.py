@@ -11,7 +11,6 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import TweetTokenizer
 import string
-from tensorflow.keras.models import load_model
 from tensorflow import keras
 
 app = Flask(__name__, instance_relative_config=True)
@@ -65,7 +64,7 @@ def result_image():
   img = np.array(img) / 255.0
   img = np.array([img])
   selected_model = session.get('selected_model', None)
-  model = load_model("models/" + selected_model)
+  model = keras.models.load_model("models/" + selected_model)
   labels = labels_dict[selected_model]
   prediction = model.predict(img).round(3)
   prediction = labels[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
@@ -97,7 +96,7 @@ def result_text():
   text = np.asarray([[' '.join(text_clean)]])
 
   selected_model = session.get('selected_model', None)
-  model = load_model("models/" + selected_model)
+  model = keras.models.load_model("models/" + selected_model)
   labels = labels_dict[selected_model]
   prediction = model.predict(text).round(3)
   prediction = labels[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
@@ -111,7 +110,7 @@ def result_audio():
   }
   
   selected_model = session.get('selected_model', None)
-  model = load_model("models/" + selected_model)
+  model = keras.models.load_model("models/" + selected_model)
   labels = labels_dict[selected_model]
   audio = ""
   prediction = model.predict(audio).round(3)

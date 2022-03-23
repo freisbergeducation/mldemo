@@ -17,8 +17,8 @@
     <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
       <div class="row">
         <div class="six columns">
-          <label for="exampleRecipientInput">1. Wähle eine KI</label>
-          <select class="u-full-width" name="selected_model">
+          <label for="model_selection_form">1. Wähle eine KI</label>
+          <select class="u-full-width" name="selected_model" id="model_selection_form">
             <option value="buch_oder_tasse">📷 buch_oder_tasse</option>
             <option value="zero_or_one">🎤 zero_or_one</option>
             <option value="hate_speech">📝 hate_speech</option>
