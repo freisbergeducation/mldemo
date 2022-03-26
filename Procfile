@@ -1,1 +1,1 @@
-web: gunicorn mldemo:app
+web: gunicorn mldemo:app --preload
