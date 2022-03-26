@@ -10,6 +10,7 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import TweetTokenizer
 import string
+import gc
 from tensorflow import keras
 
 app = Flask(__name__, instance_relative_config=True)
@@ -67,6 +68,8 @@ def result_image():
   labels = labels_dict[selected_model]
   prediction = model.predict(img).round(3)
   prediction = labels[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
+  del model
+  gc.collect()
 
   return render_template("result.html", prediction=prediction)
 
@@ -99,6 +102,8 @@ def result_text():
   labels = labels_dict[selected_model]
   prediction = model.predict(text).round(3)
   prediction = labels[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
+  del model
+  gc.collect()
 
   return render_template("result.html", prediction=prediction)
 
@@ -114,6 +119,8 @@ def result_audio():
   audio = ""
   prediction = model.predict(audio).round(3)
   prediction = labels[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
+  del model
+  gc.collect()
 
   return render_template("result.html", prediction=prediction)
 
