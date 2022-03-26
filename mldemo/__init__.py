@@ -4,7 +4,6 @@
 
 from flask import Flask, render_template, request, url_for, session
 from PIL import Image
-import matplotlib.pyplot as plt
 import numpy as np
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
