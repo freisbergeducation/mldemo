@@ -11,6 +11,7 @@ from nltk.tokenize import TweetTokenizer
 import string
 import gc
 from tensorflow import keras
+import pickle
 
 app = Flask(__name__, instance_relative_config=True)
 app.secret_key = '3ks93k6n4kdilm4jnrkf'
@@ -63,7 +64,7 @@ def result_image():
   img = np.array(img) / 255.0
   img = np.array([img])
   selected_model = session.get('selected_model', None)
-  model = keras.models.load_model("models/" + selected_model)
+  model = keras.models.load_model("models/" + selected_model + ".h5")
   labels = labels_dict[selected_model]
   prediction = model.predict(img).round(3)
   prediction = labels[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
@@ -97,7 +98,13 @@ def result_text():
   text = np.asarray([[' '.join(text_clean)]])
 
   selected_model = session.get('selected_model', None)
-  model = keras.models.load_model("models/" + selected_model)
+  vectorize_layer_config = pickle.load(open("models/" + selected_model + "_vectorize_layer.pkl", "rb"))
+  vectorize_layer = keras.layers.TextVectorization.from_config(vectorize_layer_config['config'])
+  # You have to call `adapt` with some dummy data (BUG in Keras)
+  # new_v.adapt(tf.data.Dataset.from_tensor_slices(["xyz"]))
+  vectorize_layer.set_weights(vectorize_layer_config['weights'])
+  text = vectorize_layer(text)
+  model = keras.models.load_model("models/" + selected_model + ".h5")
   labels = labels_dict[selected_model]
   prediction = model.predict(text).round(3)
   prediction = labels[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
@@ -113,7 +120,7 @@ def result_audio():
   }
   
   selected_model = session.get('selected_model', None)
-  model = keras.models.load_model("models/" + selected_model)
+  model = keras.models.load_model("models/" + selected_model + ".h5")
   labels = labels_dict[selected_model]
   audio = ""
   prediction = model.predict(audio).round(3)
