@@ -11,6 +11,7 @@ from nltk.tokenize import TweetTokenizer
 import string
 import gc
 from tensorflow import keras
+import tensorflow as tf
 import pickle
 
 app = Flask(__name__, instance_relative_config=True)
@@ -100,8 +101,6 @@ def result_text():
   selected_model = session.get('selected_model', None)
   vectorize_layer_config = pickle.load(open("models/" + selected_model + "_vectorize_layer.pkl", "rb"))
   vectorize_layer = keras.layers.TextVectorization.from_config(vectorize_layer_config['config'])
-  # You have to call `adapt` with some dummy data (BUG in Keras)
-  # new_v.adapt(tf.data.Dataset.from_tensor_slices(["xyz"]))
   vectorize_layer.set_weights(vectorize_layer_config['weights'])
   text = vectorize_layer(text)
   model = keras.models.load_model("models/" + selected_model + ".h5")
@@ -116,14 +115,32 @@ def result_text():
 @app.route('/result_audio', methods=['POST'])
 def result_audio():
   labels_dict = {
-    'hate_speech': ['zero', 'one']
+    'zero_or_one': ['zero', 'one']
   }
+
+  input_len = 5000
+  audio_input = request.files['audio_input'].read()
+
+  waveform, _ = tf.audio.decode_wav(contents=audio_input)
+  waveform = tf.squeeze(waveform, axis=-1)
+  waveform = waveform[:input_len]
+  zero_padding = tf.zeros(
+      [input_len] - tf.shape(waveform),
+      dtype=tf.float32)
+  waveform = tf.cast(waveform, dtype=tf.float32)
+  equal_length = tf.concat([waveform, zero_padding], 0)
+  spectrogram = tf.signal.stft(
+      equal_length, frame_length=255, frame_step=128)
+  spectrogram = tf.abs(spectrogram)
+  spectrogram = spectrogram[..., tf.newaxis]
+  spectrogram = np.asarray([spectrogram])
+  app.logger.info(spectrogram.shape)
   
   selected_model = session.get('selected_model', None)
   model = keras.models.load_model("models/" + selected_model + ".h5")
   labels = labels_dict[selected_model]
-  audio = ""
-  prediction = model.predict(audio).round(3)
+  prediction = model.predict(spectrogram).round(3)
+  app.logger.info(prediction)
   prediction = labels[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
   del model
   gc.collect()
