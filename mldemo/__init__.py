@@ -13,6 +13,7 @@ import gc
 from tensorflow import keras
 import tensorflow as tf
 import pickle
+import tensorflow_io as tfio
 
 app = Flask(__name__, instance_relative_config=True)
 app.secret_key = '3ks93k6n4kdilm4jnrkf'
@@ -121,7 +122,8 @@ def result_audio():
   input_len = 5000
   audio_input = request.files['audio_input'].read()
 
-  waveform, _ = tf.audio.decode_wav(contents=audio_input)
+  waveform = tfio.audio.decode_aac(input=audio_input)
+  #waveform, _ = tf.audio.decode_wav(contents=audio_input)
   waveform = tf.squeeze(waveform, axis=-1)
   waveform = waveform[:input_len]
   zero_padding = tf.zeros(
