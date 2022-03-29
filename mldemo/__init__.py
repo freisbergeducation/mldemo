@@ -122,7 +122,7 @@ def result_audio():
 
   input_len = 5000
   audio_input = request.files['audio_input'].read()
-  audio_input = AudioSegment.from_m4a(audio_input)
+  audio_input = AudioSegment.from_file(audio_input, format= 'm4a')
   random_nr = randint(1000, 9999)
   audio_input.export("./audio/audio_input_" + str(random_nr) + ".wav", format="wav")
 
