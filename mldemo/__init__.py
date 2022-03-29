@@ -15,6 +15,7 @@ import tensorflow as tf
 import pickle
 from pydub import AudioSegment
 from random import randint
+import os
 
 app = Flask(__name__, instance_relative_config=True)
 app.secret_key = '3ks93k6n4kdilm4jnrkf'
@@ -121,9 +122,10 @@ def result_audio():
   }
 
   input_len = 5000
-  audio_input = request.files['audio_input'].read()
-  audio_input = AudioSegment.from_file(audio_input, format= 'm4a')
+  audio_input = request.files['audio_input']
   random_nr = randint(1000, 9999)
+  audio_input.save(os.path.join('./audio/', 'audio_input_' + str(random_nr) + '.m4a'))
+  audio_input = AudioSegment.from_file("./audio/audio_input_" + str(random_nr) + ".m4a", format= 'm4a')
   audio_input.export("./audio/audio_input_" + str(random_nr) + ".wav", format="wav")
 
   audio_input = tf.io.read_file("./audio/audio_input_" + str(random_nr) + ".wav")
