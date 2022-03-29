@@ -13,7 +13,8 @@ import gc
 from tensorflow import keras
 import tensorflow as tf
 import pickle
-import tensorflow_io as tfio
+from pydub import AudioSegment
+from random import randint
 
 app = Flask(__name__, instance_relative_config=True)
 app.secret_key = '3ks93k6n4kdilm4jnrkf'
@@ -121,9 +122,12 @@ def result_audio():
 
   input_len = 5000
   audio_input = request.files['audio_input'].read()
+  audio_input = AudioSegment.from_m4a(audio_input)
+  random_nr = randint(1000, 9999)
+  audio_input.export("./audio/audio_input_" + str(random_nr) + ".wav", format="wav")
 
-  waveform = tfio.audio.decode_aac(input=audio_input)
-  #waveform, _ = tf.audio.decode_wav(contents=audio_input)
+  audio_input = tf.io.read_file("./audio/audio_input_" + str(random_nr) + ".wav")
+  waveform, _ = tf.audio.decode_wav(contents=audio_input)
   waveform = tf.squeeze(waveform, axis=-1)
   waveform = waveform[:input_len]
   zero_padding = tf.zeros(
