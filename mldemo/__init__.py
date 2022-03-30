@@ -136,30 +136,32 @@ def result_audio():
   audio_input.export(audio_file_path_wav, format="wav")
 
   audio_input = tf.io.read_file("./audio/audio_input_" + str(random_nr) + ".wav")
-  waveform, _ = tf.audio.decode_wav(contents=audio_input)
-  waveform = tf.squeeze(waveform, axis=-1)
-  waveform = waveform[:input_len]
+  audio_input, _ = tf.audio.decode_wav(contents=audio_input)
+  audio_input = tf.squeeze(audio_input, axis=-1)
+  audio_input = audio_input[:input_len]
   zero_padding = tf.zeros(
-      [input_len] - tf.shape(waveform),
+      [input_len] - tf.shape(audio_input),
       dtype=tf.float32)
-  waveform = tf.cast(waveform, dtype=tf.float32)
-  equal_length = tf.concat([waveform, zero_padding], 0)
-  spectrogram = tf.signal.stft(
+  audio_input = tf.cast(audio_input, dtype=tf.float32)
+  equal_length = tf.concat([audio_input, zero_padding], 0)
+  audio_input = tf.signal.stft(
       equal_length, frame_length=255, frame_step=128)
-  spectrogram = tf.abs(spectrogram)
-  spectrogram = spectrogram[..., tf.newaxis]
-  spectrogram = np.asarray([spectrogram])
-  app.logger.info(spectrogram.shape)
+  audio_input = tf.abs(audio_input)
+  audio_input = audio_input[..., tf.newaxis]
+  audio_input = np.asarray([audio_input])
+  app.logger.info(audio_input.shape)
   
   selected_model = session.get('selected_model', None)
   model = keras.models.load_model("models/" + selected_model + ".h5")
   labels = labels_dict[selected_model]
-  prediction = model.predict(spectrogram).round(3)
+  prediction = model.predict(audio_input).round(3)
   app.logger.info(prediction)
   prediction = labels[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
   del model
+  del audio_input
   gc.collect()
   os.remove(audio_file_path)
+  os.remove(audio_file_path_wav)
 
   return render_template("result.html", prediction=prediction)
 
