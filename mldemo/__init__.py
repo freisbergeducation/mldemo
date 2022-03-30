@@ -28,7 +28,7 @@ def index():
 @app.route('/upload', methods=['POST'])
 def upload():
   image_models = [
-    'buch_oder_tasse'
+    'Gesten_Gruppe_1'
   ]
   audio_models = [
     'zero_or_one'
@@ -49,7 +49,7 @@ def upload():
 @app.route('/result_image', methods=['POST', 'GET'])
 def result_image():
   labels_dict = {
-    'buch_oder_tasse': ['buch', 'tasse']
+    'Gesten_Gruppe_1': ['open', 'closed']
   }
   image_input = request.files['image_input']
   img = Image.open(image_input)
