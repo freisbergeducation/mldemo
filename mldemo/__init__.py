@@ -53,7 +53,14 @@ def result_image():
   }
   image_input = request.files['image_input']
   img = Image.open(image_input)
-  new_size = 50
+
+  selected_model = session.get('selected_model', None)
+
+  if selected_model == "Gesten_Gruppe_1":
+    new_size = 70
+  else:
+    new_size = 50
+  
   factor = new_size/min(img.size)
   
   img = img.resize((round(factor*img.size[0]), round(factor*img.size[1])), Image.ANTIALIAS)
