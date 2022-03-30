@@ -126,13 +126,14 @@ def result_audio():
   audio_input = request.files['audio_input']
   random_nr = randint(1000, 9999)
   audio_file_path = os.path.join('audio/', 'audio_input_' + str(random_nr) + '.m4a')
+  audio_file_path_wav = os.path.join('audio/', 'audio_input_' + str(random_nr) + '.wav')
   audio_input.save(audio_file_path)
 
   while not os.path.exists(audio_file_path):
     time.sleep(1)
 
   audio_input = AudioSegment.from_file(audio_file_path, format= 'm4a')
-  audio_input.export(audio_file_path, format="wav")
+  audio_input.export(audio_file_path_wav, format="wav")
 
   audio_input = tf.io.read_file("./audio/audio_input_" + str(random_nr) + ".wav")
   waveform, _ = tf.audio.decode_wav(contents=audio_input)
