@@ -130,7 +130,7 @@ def result_audio():
 
   while not os.path.exists(audio_file_path):
     time.sleep(1)
-    
+
   audio_input = AudioSegment.from_file(audio_file_path, format= 'm4a')
   audio_input.export(audio_file_path, format="wav")
 
@@ -158,6 +158,7 @@ def result_audio():
   prediction = labels[np.argmax(prediction[0])] + " (" + str(int(round(100*max(prediction[0])))) +"%)"
   del model
   gc.collect()
+  os.remove(audio_file_path)
 
   return render_template("result.html", prediction=prediction)
 
