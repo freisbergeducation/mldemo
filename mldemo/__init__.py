@@ -146,9 +146,12 @@ def result_audio():
   audio_file_path_wav = os.path.join('audio/', 'audio_input_' + str(random_nr) + '.wav')
   audio_input.save(audio_file_path)
 
+  app.logger.info(os.path.exists(audio_file_path))
+
   while not os.path.exists(audio_file_path):
     time.sleep(1)
 
+  app.logger.info(os.path.exists(audio_file_path))
   audio_input = AudioSegment.from_file(audio_file_path, format= 'm4a')
   audio_input.export(audio_file_path_wav, format="wav")
 
@@ -166,7 +169,6 @@ def result_audio():
   audio_input = tf.abs(audio_input)
   audio_input = audio_input[..., tf.newaxis]
   audio_input = np.asarray([audio_input])
-  app.logger.info(audio_input.shape)
   
   selected_model = session.get('selected_model', None)
   model = keras.models.load_model("models/" + selected_model + ".h5")
