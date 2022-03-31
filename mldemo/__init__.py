@@ -139,7 +139,7 @@ def result_audio():
     'Sprachen_Gruppe_4': ["noise", "de", "en"]
   }
 
-  input_len = 5000
+  input_len = 22050
   audio_input = request.files['audio_input']
   random_nr = randint(1000, 9999)
   audio_file_path = os.path.join('audio/', 'audio_input_' + str(random_nr) + '.m4a')
