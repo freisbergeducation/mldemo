@@ -31,10 +31,11 @@ def upload():
   image_models = [
     'Gesten_Gruppe_1',
     'Emotionen_Gruppe_2',
-    'Knoten_Gruppe_5'
+    'Knoten_Gruppe_5',
+    "Catdog_Gruppe_3"
   ]
   audio_models = [
-    'zero_or_one'
+    'Sprachen_Gruppe_4'
   ]
   text_models = [
     'hate_speech'
@@ -54,7 +55,8 @@ def result_image():
   labels_dict = {
     'Gesten_Gruppe_1': ['open', 'closed'],
     'Emotionen_Gruppe_2': ['happy', 'sad', 'angry', 'poker_face', 'bored'],
-    'Knoten_Gruppe_5': ['Doppelter Achter', 'Fesselknoten', 'Prusikknoten', 'Samariter', 'Ueberhandknoten']
+    'Knoten_Gruppe_5': ['Doppelter Achter', 'Fesselknoten', 'Prusikknoten', 'Samariter', 'Ueberhandknoten'],
+    "Catdog_Gruppe_3": ['dogs', 'Realcats', 'maxibanane', 'snoopdogg']
   }
   image_input = request.files['image_input']
   img = Image.open(image_input)
@@ -133,7 +135,7 @@ def result_text():
 @app.route('/result_audio', methods=['POST'])
 def result_audio():
   labels_dict = {
-    'zero_or_one': ['zero', 'one']
+    'Sprachen_Gruppe_4': ["noise", "de", "en"]
   }
 
   input_len = 5000
