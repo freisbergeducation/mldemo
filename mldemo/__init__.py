@@ -23,7 +23,6 @@ app.secret_key = '3ks93k6n4kdilm4jnrkf'
 
 @app.route('/')
 def index():
-  description = "hallo"
   return render_template("index.html")
 
 @app.route('/upload', methods=['POST'])
@@ -31,6 +30,7 @@ def upload():
   image_models = [
     'Gesten_Gruppe_1',
     'Emotionen_Gruppe_2',
+    'Emotionen2_Gruppe_2',
     'Knoten_Gruppe_5',
     "Catdog_Gruppe_3"
   ]
@@ -55,7 +55,8 @@ def result_image():
   labels_dict = {
     'Gesten_Gruppe_1': ['open', 'closed'],
     'Emotionen_Gruppe_2': ['happy', 'sad', 'angry', 'poker_face', 'bored'],
-    'Knoten_Gruppe_5': ['Doppelter Achter', 'Fesselknoten', 'Prusikknoten', 'Samariter', 'Ueberhandknoten'],
+    'Emotionen2_Gruppe_2': ['gluecklich', 'gelangweilt', 'verärgert'],
+    'Knoten_Gruppe_5': ['Doppelter Achter', 'Prusikknoten', 'Ueberhandknoten'],
     "Catdog_Gruppe_3": ['dogs', 'Realcats', 'maxibanane', 'snoopdogg']
   }
   image_input = request.files['image_input']
