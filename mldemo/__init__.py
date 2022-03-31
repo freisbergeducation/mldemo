@@ -143,8 +143,8 @@ def result_audio():
   audio_input = request.files['audio_input']
   app.logger.info(audio_input)
   random_nr = randint(1000, 9999)
-  audio_file_path = os.path.join('./audio/', 'audio_input_' + str(random_nr) + '.m4a')
-  audio_file_path_wav = os.path.join('./audio/', 'audio_input_' + str(random_nr) + '.wav')
+  audio_file_path = os.path.join('audio/', 'audio_input_' + str(random_nr) + '.m4a')
+  audio_file_path_wav = os.path.join('audio/', 'audio_input_' + str(random_nr) + '.wav')
   app.logger.info(audio_file_path)
   audio_input.save(audio_file_path)
 
