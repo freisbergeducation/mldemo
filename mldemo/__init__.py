@@ -136,7 +136,7 @@ def result_text():
 @app.route('/result_audio', methods=['POST'])
 def result_audio():
   labels_dict = {
-    'Sprachen_Gruppe_4': ["noise", "de", "en"]
+    'Sprachen_Gruppe_4': ["de", "en"]
   }
 
   input_len = 22050
